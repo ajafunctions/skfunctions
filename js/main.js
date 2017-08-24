@@ -18,11 +18,7 @@
         2.2.1 SLICKS
         2.2.2 Isotope
         2.2.4 Init Datepickers
-
 */
-
-
-
 
 (function($) { 
 
@@ -129,7 +125,7 @@
      * @param      {string}  tabContents__single_classname  The tab contents single classname
      * @param      {<type>}  active___classname             The active classname
      */
-    simple_tabbing = function(masterParent_classname, tabLinks__single_classname, tabContents__single_classname, active___classname, select__dropdown) {
+    window.simple_tabbing = function(masterParent_classname, tabLinks__single_classname, tabContents__single_classname, active___classname, select__dropdown) {
         // GET CLASS NAMES
         var mp = '.'+masterParent_classname;
         var tl = '.'+tabLinks__single_classname;
@@ -181,7 +177,7 @@
             $( mp +' '+ tc ).hide();
             $( mp +' '+ tc+'--'+__tab ).fadeIn();
         });
-    }
+    };
 
 
 /**------------- 2.1.2 Equalize Height -------------**/
@@ -189,28 +185,28 @@
      *
      * @param      {<type>}  elem    The element
      */
-    equalizeHeight = function(elem) {
+    window.equalizeHeight = function(elem) {
         var arr = [];
-        a = 0;
+        var a = 0;
 
-        jQuery(elem).each(function() {
-            arr[a++] = jQuery(this).outerHeight();
+        $(elem).each(function() {
+            arr[a++] = $(this).outerHeight();
         });
 
         var largest = Math.max.apply(Math, arr);
 
-        jQuery(elem).each(function() {
-            jQuery(this).css({
+        $(elem).each(function() {
+            $(this).css({
                 'min-height': largest
             });
         });
-    }
+    };
 
 
 /**------------- 2.1.3 Contact Form Modal -------------**/
     /** CONTACT FORM MODAL
     */
-    // contactFormModal = function(){
+    // window.contactFormModal = function(){
     //     $.featherlight($('#contactFormModal'), {
     //         closeOnClick: '.close-featherlight'
     //     });
@@ -218,7 +214,7 @@
 
 
 /**------------- 2.1.4 Random Class Name -------------**/
-    randomClass = function(length){
+    window.randomClass = function(length){
         var text = "";
         var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
@@ -226,16 +222,16 @@
             text += possible.charAt(Math.floor(Math.random() * possible.length));
 
         return text;
-    }
+    };
 
 
 /**------------- 2.1.5 Media Based scripts -------------**/
-    viewportBasedScripts = function() {
+    window.viewportBasedScripts = function() {
         var rtime;
         var timeout = false;
         var delta = 200;
 
-        jQuery(window).resize(function() {
+        $(window).resize(function() {
             rtime = new Date();
             if (timeout === false) {
                 timeout = true;
@@ -249,7 +245,7 @@
             } else {
                 timeout = false;
                 
-                var width = jQuery(window).width();
+                var width = $(window).width();
 
                 if (width > 989) {
                     // equalizeHeight('.our-team-slider__slickmaster .ots__inner');
@@ -258,12 +254,12 @@
                 }
             }               
         }
-    }
+    };
 
 
 /*****---------- 2.2 ADDITIONAL FUNCTIONS   ----------*****/
 /**------------- 2.2.1 SLICKS -------------**/
-    slickSingle = function(){
+    window.slickSingle = function(){
         $('.slick-master-single-view > .ss__images').each(function() {
             var imgHeight      = $(this).attr('data-img-height');
             var sliderAutoplay = $(this).attr('data-autoplay');
@@ -332,9 +328,9 @@
                 $(this).parent().prev('.ss__images').slick('slickPrev');
             });
         });
-    }
+    };
 
-    slickThumbnail = function(){
+    window.slickThumbnail = function(){
         $('.slick-master-single-thumbnails-view > .ss__images').each(function() {
             var imgHeight      = $(this).attr('data-img-height');
             var sliderAutoplay = $(this).attr('data-autoplay');
@@ -399,7 +395,7 @@
 
             $('.ss__nav').on('click', function(e) {
                 e.preventDefault();
-            })
+            });
 
             $(this).parent().find('.ss__nav').slick({
                 asNavFor: $(this),
@@ -467,9 +463,9 @@
                 $(this).parent().prev('.ss__images').slick('slickPrev');
             });
         });
-    }
+    };
 
-    slickMultiple = function(){
+    window.slickMultiple = function(){
         $('.slick-master-multiple-view > .ss__images').each(function() {
             var toShow = $(this).attr('data-show');
             var imgHeight = $(this).attr('data-img-height');
@@ -540,20 +536,20 @@
                 $(this).parent().prev('.ss__images').slick('slickPrev');
             });
         });
-    }
+    };
 
-    slickCenter = function(){
+    window.slickCenter = function(){
         $('.slick-master-centered').each(function() {
             $(this).slick({
                 centerMode: true,
                 slidesToShow: 3,
                 focusOnSelect: true,
                 centerPadding: '60px',
-            })
+            });
         });
-    }
+    };
 
-    slickMisc = function(){
+    window.slickMisc = function(){
         $('.side-services__slickmaster').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -610,12 +606,10 @@
                 }
             ]
         });
-
-        
-    }
+    };
 
 
-    slickGallery = function(preview, nav){
+    window.slickGallery = function(preview, nav){
         $(preview).slick({
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -633,11 +627,11 @@
             focusOnSelect: true,
             arrows: false
         });
-    }
+    };
 
 
 /**------------- 2.2.2 Isotope -------------**/
-    initIsotope = function(){
+    window.initIsotope = function(){
         // init Isotope =GALLERY
         $('.gallery-isotopes-master > .gallery-isotopes__images').each(function() {
             var imgSpace = $(this).attr('data-img-space');
@@ -646,9 +640,17 @@
 
             var $filterLinks = $(this).find('a');
 
-            ((imgSpace == "Yes") ? $filterLinks.css('border', '5px solid #fff') : '');
-            ((imgCount) ? $filterLinks.css('width', 100 / imgCount + '%') : '');
-            ((imgHeight) ? $filterLinks.css('height', imgHeight + 'px') : '');
+            if ( imgSpace == "Yes" ) {
+                            $filterLinks.css('border', '5px solid #fff');
+            }
+
+            if ( imgCount ) {
+                $filterLinks.css('width', 100 / imgCount + '%');
+            }          
+
+            if ( imgHeight ) {
+                $filterLinks.css('height', imgHeight + 'px');
+            }
             
             var $grid = $(this).isotope({
                 itemSelector: '.gallery-isotope-pic',
@@ -678,18 +680,17 @@
                 });
             });
         });
-
-    }
+    };
 
 
 /**------------- 2.2.4 Init Datepickers -------------**/
-    // initDatePickers = function(){
+    // window.initDatePickers = function(){
     //     $("input.car-booking-day").datepicker(
     //         {
     //             dateFormat: 'dd-mm-yy',
     //             minDate: new Date('') + 2,
     //             changeMonth: true,
-    //             beforeShowDay: jQuery.datepicker.noWeekends 
+    //             beforeShowDay: $.datepicker.noWeekends 
     //         }
     //     );
     // }
