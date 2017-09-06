@@ -89,6 +89,16 @@
         -webkit-transform: translate3d(-50%,-50%,0);
                 transform: translate3d(-50%,-50%,0);
     }
+
+    .lightbox-disabled .slick-slide {
+        pointer-events: none;
+    }
+
+    .slick-master .slick-slide {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
     
 /*****---------- 1.2 TYPES: MULTIPLE VIEW ----------*****/
     .slick-master-multiple-view .slick-master__arrows {

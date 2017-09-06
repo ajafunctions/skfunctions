@@ -271,7 +271,7 @@
             $(this).find('a').css('height', imgHeight + 'px');
 
             $(this).slick({
-                dots: false,
+                dots: true,
                 arrows: false,
                 infinite: true,
                 speed: 300,
@@ -487,6 +487,7 @@
                 slidesToScroll: 1,
                 autoplay: ((sliderAutoplay == "Yes") ? true : false),
                 autoplaySpeed: 5000,
+                centerMode: true,
                 responsive: [
                     {
                       breakpoint: 1024,

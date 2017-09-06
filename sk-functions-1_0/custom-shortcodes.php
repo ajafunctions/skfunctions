@@ -126,7 +126,7 @@
 
 						<?php // MULTIPLE VIEW
 							if(get_field('slider_type') == 'Multiple View') : ?>
-							<div class="slick-master slick-master-multiple-view slick-slider-classid-<?= $sd_atts['id'] ?>">
+							<div class="<?= ( get_field( 'enable_lightbox' ) == 'No' ) ? 'lightbox-disabled ' : '' ?>slick-master slick-master-multiple-view slick-slider-classid-<?= $sd_atts['id'] ?>">
 								<div class="ss__images" data-autoplay="<?= get_field('autoplay') ?>" data-show="<?= get_field('initial_images_to_show') ?>" data-img-height="<?= get_field('image_height') ?>">
 									<?php 
 									$images = get_field('slick_images');
@@ -147,7 +147,7 @@
 
 						<?php // SINGLE VIEW
 							elseif(get_field('slider_type') == 'Single View') : ?>
-							<div class="slick-master slick-master-single-view slick-absolute-arrows slick-slider-classid-<?= $sd_atts['id'] ?>">
+							<div class="<?= ( get_field( 'enable_lightbox' ) == 'No' ) ? 'lightbox-disabled ' : '' ?>slick-master slick-master-single-view slick-absolute-arrows slick-slider-classid-<?= $sd_atts['id'] ?>">
 								
 								<div class="ss__images" data-autoplay="<?= get_field('autoplay') ?>" data-img-height="<?= get_field('image_height') ?>">
 									<?php 
@@ -160,14 +160,17 @@
 									<?php endif; ?>
 								</div>
 
-								<div class="slick-master__arrows">
-									<i class="fa fa-angle-left" aria-hidden="true"></i> <i class="fa fa-angle-right" aria-hidden="true"></i></i>
-								</div>
+								<?php if( get_field('enable_arrows') == 'Yes') : ?>
+									<div class="slick-master__arrows">
+										<i class="fa fa-angle-left" aria-hidden="true"></i> <i class="fa fa-angle-right" aria-hidden="true"></i></i>
+									</div>
+								<?php endif; ?>
+								
 						    </div>
 
 						<?php // SINGLE VIEW with THUMBNAILS
 							elseif(get_field('slider_type') == 'Single View with Thumbnails') : ?>
-							<div class="slick-master slick-master-single-thumbnails-view slick-absolute-arrows slick-slider-classid-<?= $sd_atts['id'] ?>">
+							<div class="<?= ( get_field( 'enable_lightbox' ) == 'No' ) ? 'lightbox-disabled ' : '' ?>slick-master slick-master-single-thumbnails-view slick-absolute-arrows slick-slider-classid-<?= $sd_atts['id'] ?>">
 								
 								<div class="ss__images" data-autoplay="<?= get_field('autoplay') ?>" data-img-height="<?= get_field('image_height') ?>">
 									<?php 
@@ -180,9 +183,11 @@
 									<?php endif; ?>
 								</div>
 
-								<div class="slick-master__arrows">
-									<i class="fa fa-angle-left" aria-hidden="true"></i> <i class="fa fa-angle-right" aria-hidden="true"></i></i>
-								</div>
+								<?php if( get_field('enable_arrows') == 'Yes') : ?>
+									<div class="slick-master__arrows">
+										<i class="fa fa-angle-left" aria-hidden="true"></i> <i class="fa fa-angle-right" aria-hidden="true"></i></i>
+									</div>
+								<?php endif; ?>
 
 								<div class="ss__nav" data-show="<?= get_field('initial_images_to_show') ?>">
 									<?php 

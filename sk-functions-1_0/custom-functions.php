@@ -15,6 +15,7 @@ Network: true
 		include( plugin_dir_path( __FILE__ ) . '/register-post-types.php');
 
 		$files = getDirContents(plugin_dir_path( __FILE__ ) .'/customs/functions');
+		
 		foreach($files as $file ){
 			include( $file );
 		}
@@ -38,11 +39,11 @@ Network: true
 		wp_enqueue_style( 'slick-theme', plugin_dir_url( __FILE__ ) . 'js/slick/slick-theme.css');
 		wp_enqueue_script( 'slick-js', plugin_dir_url( __FILE__ ) . 'js/slick/slick.min.js', array(), '1.6.0', true );
 		// wp_enqueue_script( 'fix_input_number', plugin_dir_url( __FILE__ ) . 'js/vendors/fix_for_number_inputs.js', array() );
-		wp_enqueue_script( 'numeric', plugin_dir_url( __FILE__ ) . 'js/vendors/numeric.js', array() );
+		// wp_enqueue_script( 'numeric', plugin_dir_url( __FILE__ ) . 'js/vendors/numeric.js', array() );
 		// wp_enqueue_style( 'hover', plugin_dir_url( __FILE__ ) . 'css/hover-min.css' );
-		wp_enqueue_style( 'featherlight-css', plugin_dir_url( __FILE__ ) . 'js/featherlight/featherlight.css' );
-		wp_enqueue_script( 'isotopes', plugin_dir_url( __FILE__ ) . 'js/vendors/isotope.pkgd.min.js', array() );
-		wp_enqueue_script( 'actual', plugin_dir_url( __FILE__ ) . 'js/vendors/jquery.actual.min.js', array() );
+		// wp_enqueue_style( 'featherlight-css', plugin_dir_url( __FILE__ ) . 'js/featherlight/featherlight.css' );
+		// wp_enqueue_script( 'isotopes', plugin_dir_url( __FILE__ ) . 'js/vendors/isotope.pkgd.min.js', array() );
+		// wp_enqueue_script( 'actual', plugin_dir_url( __FILE__ ) . 'js/vendors/jquery.actual.min.js', array() );
 	}
 	add_action( 'wp_enqueue_scripts', 'custom_plugin_scripts' );
 
@@ -57,7 +58,7 @@ Network: true
 /*****---------- 2.3 Enqueue Last ----------*****/
 	function bottom_scripts(){
 		// wp_enqueue_script('date', plugin_dir_url( __FILE__ ) . 'js/vendors/date.js', array());
-		wp_enqueue_script( 'featherlight-js', plugin_dir_url( __FILE__ ) . 'js/featherlight/featherlight.js' );
+		// wp_enqueue_script( 'featherlight-js', plugin_dir_url( __FILE__ ) . 'js/featherlight/featherlight.js' );
 		wp_enqueue_script( 'cf-scripts', plugin_dir_url( __FILE__ ) . 'js/main.js', array() );
 	}
 	add_action( 'wp_enqueue_scripts', 'bottom_scripts', PHP_INT_MAX);
