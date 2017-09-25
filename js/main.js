@@ -225,36 +225,67 @@
     };
 
 
-/**------------- 2.1.5 Media Based scripts -------------**/
-    window.viewportBasedScripts = function() {
-        var rtime;
-        var timeout = false;
-        var delta = 200;
+/*****---------- 5.4 Media Based Scripts ----------*****/
+  viewportBasedScripts = function() {
+    var rtime;
+    var timeout = false;
+    var delta = 200;
 
-        $(window).resize(function() {
-            rtime = new Date();
-            if (timeout === false) {
-                timeout = true;
-                setTimeout(media_base_scripts, delta);
-            }
-        });
+    mediabaseFunctions($(window).width());
 
-        function media_base_scripts() {
-            if (new Date() - rtime < delta) {
-                setTimeout(media_base_scripts, delta);
-            } else {
-                timeout = false;
-                
-                var width = $(window).width();
-
-                if (width > 989) {
-                    // equalizeHeight('.our-team-slider__slickmaster .ots__inner');
-                } else {
-                    // $('.our-team-slider__slickmaster .ots__inner').css('min-height','0');
-                }
-            }               
+    $(window).resize(function() {
+        rtime = new Date();
+        if (timeout === false) {
+            timeout = true;
+            setTimeout(mediaBaseResizer, delta);
         }
-    };
+    });
+
+    function mediaBaseResizer() {
+      if (new Date() - rtime < delta) {
+          setTimeout(mediaBaseResizer, delta);
+      } else {
+        timeout = false;
+        
+        var width = $(window).width();
+        mediabaseFunctions(width);
+      }
+    }
+
+    function mediabaseFunctions(width) {
+
+    // READ MORE COLLAPSABLE FUNCTION just add '.r__collapse' to an element
+      if (width < 768) {
+        $('.r__collapse').each(function() {
+          $(this).addClass('r__collapse-on').slideUp();
+
+          if( !$(this).next('.r__collapse-readmore').length ) {
+            $('<span class="r__collapse-readmore"><a href="#"><u>read more</u></a></span>').insertAfter(this);
+          }
+        });
+      } else {
+        $('.r__collapse').each(function() {
+          $(this).removeClass('r__collapse-on').slideDown();
+          $(this).next('.r__collapse-readmore').remove();
+        });
+      }
+
+      $.fn.extend({
+        toggleText: function(a, b){
+          return this.text(this.text() == b ? a : b);
+        }
+      });
+
+      $('.r__collapse-readmore').find('a').on('click', function(e) {
+        e.preventDefault();
+        $(this).parent().prev('.r__collapse').slideToggle();
+
+        $(this).find('u').toggleText('read less', 'read more');
+      });
+
+    }
+
+  }
 
 
 /*****---------- 2.2 ADDITIONAL FUNCTIONS   ----------*****/
