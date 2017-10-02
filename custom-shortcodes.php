@@ -99,8 +99,6 @@
 	}
 	add_shortcode( 'gallery-isotopes' , 'gallery_isotopes' );
 	// [gallery-isotopes id="141"]
-
-
 /*****---------- 2.2 SLICK SLIDER DYNAMIC ----------*****/
 	function slick_dynamic_func($atts) {
 		$sd_atts = shortcode_atts(
@@ -217,11 +215,23 @@
 	}
 	add_shortcode( 'slickslider' , 'slick_dynamic_func' );
 	// [slickslider id="141"]
-
-
 /*****---------- 2.3 RETURN HOME URL ----------*****/
 	function returnHomeURL() {
 		return home_url();
 	}
 	add_shortcode( 'sitehomeurl' , 'returnHomeURL' );
 	// [sitehomeurl]
+/*****---------- 2.4 MENU SHORTCODE ----------*****/
+	function simpleMenu($atts) {
+    	// Attributes
+		extract( shortcode_atts(
+			array(
+				'name' => '',
+			), $atts )
+		);
+
+		// Code
+        return wp_nav_menu( array( 'menu' => $name, 'echo' => false ) );
+	}
+	add_shortcode( 'simple-menu' , 'simpleMenu' );
+	// [simple-menu name=""]
