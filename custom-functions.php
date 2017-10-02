@@ -9,12 +9,19 @@ Author URI:
 Network: true
 */
 
+defined( 'ABSPATH' )
+	or die( 'No direct load ! ' );
+
+define( 'SK_CF_DIR', plugin_dir_path( __FILE__ ) );
+define( 'SK_CF_URL', plugin_dir_url( __FILE__ ) );
+define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+
 /*************** 1. External Links ***************/
 	function add_includes(){
-		include( plugin_dir_path( __FILE__ ) . '/custom-shortcodes.php'); 
-		include( plugin_dir_path( __FILE__ ) . '/register-post-types.php');
+		include( SK_CF_DIR . '/custom-shortcodes.php'); 
+		include( SK_CF_DIR . '/register-post-types.php');
 
-		$files = getDirContents(plugin_dir_path( __FILE__ ) .'/customs/functions');
+		$files = getDirContents(SK_CF_DIR .'/customs/functions');
 		
 		foreach($files as $file ){
 			include( $file );
@@ -22,11 +29,10 @@ Network: true
 
 		date_default_timezone_set('Asia/Singapore');
 	}
-
 	add_action('init', 'add_includes', 2);
 
 	function includeClasses(){
-		include( plugin_dir_path( __FILE__ ) . '/classes/main/MainObject.php'); 
+		include( SK_CF_DIR . '/classes/main/MainObject.php'); 
 
 	}
 	add_action('init', 'includeClasses', 1);
@@ -35,15 +41,15 @@ Network: true
 
 /*****---------- 2.1 Scripts ----------*****/
 	function custom_plugin_scripts() {
-		wp_enqueue_style( 'slick-css', plugin_dir_url( __FILE__ ) . 'js/slick/slick.css');
-		wp_enqueue_style( 'slick-theme', plugin_dir_url( __FILE__ ) . 'js/slick/slick-theme.css');
-		wp_enqueue_script( 'slick-js', plugin_dir_url( __FILE__ ) . 'js/slick/slick.min.js', array(), '1.6.0', true );
-		// wp_enqueue_script( 'fix_input_number', plugin_dir_url( __FILE__ ) . 'js/vendors/fix_for_number_inputs.js', array() );
-		// wp_enqueue_script( 'numeric', plugin_dir_url( __FILE__ ) . 'js/vendors/numeric.js', array() );
-		// wp_enqueue_style( 'hover', plugin_dir_url( __FILE__ ) . 'css/hover-min.css' );
-		// wp_enqueue_style( 'featherlight-css', plugin_dir_url( __FILE__ ) . 'js/featherlight/featherlight.css' );
-		// wp_enqueue_script( 'isotopes', plugin_dir_url( __FILE__ ) . 'js/vendors/isotope.pkgd.min.js', array() );
-		// wp_enqueue_script( 'actual', plugin_dir_url( __FILE__ ) . 'js/vendors/jquery.actual.min.js', array() );
+		wp_enqueue_style( 'slick-css', SK_CF_URL . 'js/slick/slick.css');
+		wp_enqueue_style( 'slick-theme', SK_CF_URL . 'js/slick/slick-theme.css');
+		wp_enqueue_script( 'slick-js', SK_CF_URL . 'js/slick/slick.min.js', array(), '1.6.0', true );
+		// wp_enqueue_script( 'fix_input_number', SK_CF_URL . 'js/vendors/fix_for_number_inputs.js', array() );
+		// wp_enqueue_script( 'numeric', SK_CF_URL . 'js/vendors/numeric.js', array() );
+		// wp_enqueue_style( 'hover', SK_CF_URL . 'css/hover-min.css' );
+		// wp_enqueue_style( 'featherlight-css', SK_CF_URL . 'js/featherlight/featherlight.css' );
+		// wp_enqueue_script( 'isotopes', SK_CF_URL . 'js/vendors/isotope.pkgd.min.js', array() );
+		// wp_enqueue_script( 'actual', SK_CF_URL . 'js/vendors/jquery.actual.min.js', array() );
 	}
 	add_action( 'wp_enqueue_scripts', 'custom_plugin_scripts' );
 
@@ -57,9 +63,9 @@ Network: true
 
 /*****---------- 2.3 Enqueue Last ----------*****/
 	function bottom_scripts(){
-		// wp_enqueue_script('date', plugin_dir_url( __FILE__ ) . 'js/vendors/date.js', array());
-		// wp_enqueue_script( 'featherlight-js', plugin_dir_url( __FILE__ ) . 'js/featherlight/featherlight.js' );
-		wp_enqueue_script( 'cf-scripts', plugin_dir_url( __FILE__ ) . 'js/main.js', array() );
+		// wp_enqueue_script('date', SK_CF_URL . 'js/vendors/date.js', array());
+		// wp_enqueue_script( 'featherlight-js', SK_CF_URL . 'js/featherlight/featherlight.js' );
+		wp_enqueue_script( 'cf-scripts', SK_CF_URL . 'js/main.js', array() );
 	}
 	add_action( 'wp_enqueue_scripts', 'bottom_scripts', PHP_INT_MAX);
 
@@ -76,9 +82,9 @@ Network: true
 		global $post;
 	    $post_slug=$post->post_name;
 	    $styleName = $post_slug. '.css';
-	    $certainStyles = getDirFiles(plugin_dir_path( __FILE__ ) . '/css/certainpage');
+	    $certainStyles = getDirFiles(SK_CF_DIR . '/css/certainpage');
 	    if(in_array($styleName, $certainStyles)){
-			wp_enqueue_style( $post_slug , plugin_dir_url( __FILE__ ) . 'css/certainpage/' . $styleName );    	
+			wp_enqueue_style( $post_slug , SK_CF_URL . 'css/certainpage/' . $styleName );    	
 	    }
 	}
 	add_action('wp_enqueue_scripts', 'certainStyles');
@@ -206,7 +212,23 @@ Network: true
 	}
 
 
+/**------------- 5.3.3 site_URL Menu Filter -------------**/
+	// e.g. http://[site_URL]/#asiudyasjkd
+	function change_menu($items){
+		foreach($items as $item){
+			$item->url = preg_replace("/http:\/\/\[site_URL\]/", home_url(), $item->url);
+		}
+		return $items;
+	}
+	add_filter('wp_nav_menu_objects', 'change_menu');
 
+/**------------- 5.3.4 Strip Dashes -------------**/
+	function strip_dash_noalpha($string) {
+		$strip_nonalphanumeric = preg_replace("/[^A-Za-z0-9 ]/", '', $string );
+		$strip_dashes =  str_replace(' ' ,'-',$strip_nonalphanumeric);
+
+		return $strip_dashes;
+	}
 
 // ************************************
 // =AJAX
@@ -227,13 +249,3 @@ Network: true
 	// add_action('wp_ajax_nopriv_changeProjects', 'changeProjects');
 
 
-
-// ************************************
-// =STRIP DASHES
-// ************************************
-	function strip_dash_noalpha($string) {
-		$strip_nonalphanumeric = preg_replace("/[^A-Za-z0-9 ]/", '', $string );
-		$strip_dashes =  str_replace(' ' ,'-',$strip_nonalphanumeric);
-
-		return $strip_dashes;
-	}
