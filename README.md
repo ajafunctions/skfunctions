@@ -1,7 +1,7 @@
 # sk-functions
 
+``` html
 1. Portal Modal pattern:
-
 <a href="#" class="link--modal" data-modal="modal__1">test</a>
     
 <div id="modal__1" class="portal--modal">
@@ -14,3 +14,5 @@
         </div>
     </div>
 </div>
+
+```
