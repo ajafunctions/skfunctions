@@ -56,7 +56,8 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 /*****---------- 2.2 Scripts ----------*****/
 	function custom_plugin_styles() {
 	 	// wp_enqueue_style( 'jquery-ui-cdn-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css');
-		wp_enqueue_style( 'bootstrap-grid', plugin_dir_url( __FILE__ ) . 'css/bootstrap-grid.css');
+		wp_enqueue_style( 'btsp-bootstrap-gridonly', plugin_dir_url( __FILE__ ) . 'css/btsp-bootstrap-gridonly.css');
+		// wp_enqueue_style( 'bootstrap-grid', plugin_dir_url( __FILE__ ) . 'css/bootstrap-grid.css');
 		wp_enqueue_style( 'cf-css', plugin_dir_url( __FILE__ ) . 'css/cf-css.css');
 	}
 	add_action( 'wp_enqueue_scripts', 'custom_plugin_styles' );
