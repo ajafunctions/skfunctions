@@ -38,7 +38,6 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 	add_action('init', 'includeClasses', 1);
 
 /*************** 2. ACTIONS ***************/
-
 /*****---------- 2.1 Scripts ----------*****/
 	function custom_plugin_scripts() {
 		wp_enqueue_style( 'slick-css', SK_CF_URL . 'js/slick/slick.css');
@@ -52,7 +51,6 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		// wp_enqueue_script( 'actual', SK_CF_URL . 'js/vendors/jquery.actual.min.js', array() );
 	}
 	add_action( 'wp_enqueue_scripts', 'custom_plugin_scripts' );
-
 /*****---------- 2.2 Scripts ----------*****/
 	function custom_plugin_styles() {
 	 	// wp_enqueue_style( 'jquery-ui-cdn-css', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css');
@@ -61,7 +59,6 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		wp_enqueue_style( 'cf-css', plugin_dir_url( __FILE__ ) . 'css/cf-css.css');
 	}
 	add_action( 'wp_enqueue_scripts', 'custom_plugin_styles' );
-
 /*****---------- 2.3 Enqueue Last ----------*****/
 	function bottom_scripts(){
 		// wp_enqueue_script('date', SK_CF_URL . 'js/vendors/date.js', array());
@@ -69,7 +66,6 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		wp_enqueue_script( 'cf-scripts', SK_CF_URL . 'js/main.js', array() );
 	}
 	add_action( 'wp_enqueue_scripts', 'bottom_scripts', PHP_INT_MAX);
-
 /*****---------- 2.4 Main Variables for JS ----------*****/
 	function main_variables(){
 		echo "<script type=\"text/javascript\">".
@@ -77,7 +73,6 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 	      "</script>";
 	}
 	add_action ( 'wp_head', 'main_variables' );
-
 /*****---------- 2.5 Certain Page Styles ----------*****/
 	function certainStyles(){
 		global $post;
@@ -112,14 +107,10 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 	}
 	add_action('init', 'test_code_here');
 
-
 /*************** 5. REUSBALE FUNCTIONS ***************/
-
 /*****---------- 5.1 Word Limiter ----------*****/
 	// https://developer.wordpress.org/reference/functions/wp_trim_words/
 	// use wp_trim_words(content, limit, ending_string)
-
-
 /*****---------- 5.2 Pagination ----------*****/
 	function custom_pagination($numpages = '', $pagerange = '', $paged='') {
 
@@ -180,7 +171,6 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		    echo "</nav>";
 		}
 	}
-
 /*****---------- 5.3 Directory Lister ----------*****/
 /**------------- 5.3.1 Real Path -------------**/
 	function getDirContents($dir, &$results = array()){
@@ -211,8 +201,6 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 	    return $results;
 	}
-
-
 /**------------- 5.3.3 site_URL Menu Filter -------------**/
 	// e.g. http://[site_URL]/#asiudyasjkd
 	function change_menu($items){
@@ -222,7 +210,6 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 		return $items;
 	}
 	add_filter('wp_nav_menu_objects', 'change_menu');
-
 /**------------- 5.3.4 Strip Dashes -------------**/
 	function strip_dash_noalpha($string) {
 		$strip_nonalphanumeric = preg_replace("/[^A-Za-z0-9 ]/", '', $string );
@@ -230,23 +217,3 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 		return $strip_dashes;
 	}
-
-// ************************************
-// =AJAX
-// ************************************
-	// function changeProjects($category){
-	// 	$response = [];
-	// 	$response['status'] = false;
-	// 	if(isset($_POST['category'])){
-	// 		$html = showProjects($category);
-	// 			//showProjects - /portal/wp-content/plugins/custom-functions-v2-1/shortcodes/home_slider.php
-	// 		$response['html'] = $html;
-	// 		$response['status'] = true;
-	// 	}
-	// 	echo json_encode($response);
-	// 	wp_die();
-	// }
-	// add_action('wp_ajax_changeProjects', 'changeProjects');
-	// add_action('wp_ajax_nopriv_changeProjects', 'changeProjects');
-
-

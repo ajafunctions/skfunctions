@@ -17,12 +17,10 @@
 			slickMultiple();
 			slickCenter();
 			slickMisc();
-		// OUR TEAM SLIDER EXTRA OPTIONS
+		// SET POSITION SLICK SAMPLE
 			// $('.our-team-slider__slickmaster').slick("setPosition", 0);
-			// $('.our-team-slider__slickmaster').fadeIn();
 		// init Date Pickers
 			// initDatePickers();
-		// MEDIA BASED SCRIPTS
 	}
 /*****---------- 1.2 onChanges ----------*****/
 	function onChanges() {
@@ -63,6 +61,7 @@
 			}
 		} );
 	}
+
 /*************** 2. FUNCTIONS ***************/
 /*****---------- 2.1 REUSABLE FUNCTIONS ----------*****/
 /**------------- 2.1.1 Simple Tabbing -------------**/
@@ -162,7 +161,6 @@
 		return text;
 	};
 /**------------- 2.1.5 Media Base Scripts -------------**/
-/*****---------- 2.1.5 Media Based Scripts ----------*****/
 	window.viewportBasedScripts = function() {
 		var rtime;
 		var timeout = false;
@@ -228,7 +226,32 @@
 			}
 		} );
 	};
+/**------------- 2.1.7 Field accepts number only -------------**/
+	window.fieldNumberOnly = function( field_element ) {
+		
+		$(document).on('keydown', field_element, function(e){
+	        if( (e.keyCode >= 48 && e.keyCode <= 57) || (e.keyCode >= 96 && e.keyCode <= 105) ){
+	            if(e.shiftKey){
+	                return false;
+	            }
+	            return true;
+	        } else if( e.keyCode == 173 || e.keyCode == 189 || e.keyCode == 109 ||           //dashes
+	                (e.shiftKey && e.keyCode == 61) || e.keyCode ==  107 || e.keyCode == 187 //plus signs
+	        ){
+	            return true;
+	        }
+	        else if( ( e.keyCode <= 46 && e.keyCode != 32) || (e.keyCode >= 112 && e.keyCode <= 123)
+	            || (e.keyCode >= 144 && e.keyCode <= 145)  ){
+	            return true;
+	        } 
+	        else if(e.ctrlKey || (e.ctrlKey && e.shiftKey) || (e.shiftKey && e.altKey)){
+	            return true;
+	        }else {
+	            return false;
+	        }
+	    });
 
+	};
 /*****---------- 2.2 ADDITIONAL FUNCTIONS   ----------*****/
 /**------------- 2.2.1 SLICKS -------------**/
 	window.slickSingle = function() {
@@ -584,7 +607,6 @@
 			arrows: false
 		} );
 	};
-
 /**------------- 2.2.2 Isotope -------------**/
 	window.initIsotope = function() {
 		// init Isotope =GALLERY
@@ -629,17 +651,16 @@
 				} );
 			} );
 		} );
-};
-
-/**------------- 2.2.4 Init Datepickers -------------**/
-// window.initDatePickers = function(){
-//	 $("input.car-booking-day").datepicker(
-//		 {
-//			 dateFormat: 'dd-mm-yy',
-//			 minDate: new Date('') + 2,
-//			 changeMonth: true,
-//			 beforeShowDay: $.datepicker.noWeekends 
-//		 }
-//	 );
-// }
+	};
+/**------------- 2.2.3 Init Datepickers -------------**/
+	// window.initDatePickers = function(){
+	//	 $("input.car-booking-day").datepicker(
+	//		 {
+	//			 dateFormat: 'dd-mm-yy',
+	//			 minDate: new Date('') + 2,
+	//			 changeMonth: true,
+	//			 beforeShowDay: $.datepicker.noWeekends 
+	//		 }
+	//	 );
+	// }
 } )( jQuery );

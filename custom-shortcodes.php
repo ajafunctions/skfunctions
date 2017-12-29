@@ -3,8 +3,6 @@
 /*************** 1. CUSTOM SHORTCODE ***************/
 /*****---------- 1.1 SLIDER ----------*****/
 	// include( plugin_dir_path( __FILE__ ) . '/shortcodes/sample-shortcode.php'); 
-	//// [sample_shortcode]
-
 
 /*************** 2. MAIN SHORTCODES ***************/
 /*****---------- 2.1 GALLERY =ISOTOPES ----------*****/
