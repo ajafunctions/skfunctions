@@ -17,25 +17,36 @@ define( 'SK_CF_URL', plugin_dir_url( __FILE__ ) );
 define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 
 /*************** 1. External Links ***************/
-	function add_includes(){
-		include( SK_CF_DIR . '/custom-shortcodes.php'); 
-		include( SK_CF_DIR . '/register-post-types.php');
+	function add_priorities(){
+		include(  SK_CF_DIR  . 'helpers/main_helper.php'); 
+	}
+	add_action('init', 'add_priorities', 1);
 
-		$files = getDirContents(SK_CF_DIR .'/customs/functions');
-		
-		foreach($files as $file ){
-			include( $file );
+	function includeClasses(){
+		include(  SK_CF_DIR  . 'classes/main/MainObject.php'); 
+
+	}
+	add_action('init', 'includeClasses', 2);
+
+	function add_other_files(){
+		include(  SK_CF_DIR  . 'custom-shortcodes.php' ); 
+		include(  SK_CF_DIR  . 'register-post-types.php' );
+		include(  SK_CF_DIR  . 'admin/admin-functions.php' );
+
+		$functions = getDirContents(  SK_CF_DIR  .'customs/functions');		
+		foreach($functions as $function ){
+			include( $function );
+		}
+
+		$filters = getDirContents(  SK_CF_DIR  .'customs/filters');		
+		foreach($filters as $filter ){
+			include( $filter );
 		}
 
 		date_default_timezone_set('Asia/Singapore');
 	}
-	add_action('init', 'add_includes', 2);
+	add_action('init', 'add_other_files', 3);
 
-	function includeClasses(){
-		include( SK_CF_DIR . '/classes/main/MainObject.php'); 
-
-	}
-	add_action('init', 'includeClasses', 1);
 
 /*************** 2. ACTIONS ***************/
 /*****---------- 2.1 Scripts ----------*****/
@@ -72,10 +83,14 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 	        "home_url = '".home_url()."';".
 	      "</script>";
 	}
-	add_action ( 'wp_head', 'main_variables' );
+	add_action ( 'wp_footer', 'main_variables' );
 /*****---------- 2.5 Certain Page Styles ----------*****/
 	function certainStyles(){
 		global $post;
+		if( $post == null ){
+			return;
+		}
+
 	    $post_slug=$post->post_name;
 	    $styleName = $post_slug. '.css';
 	    $certainStyles = getDirFiles(SK_CF_DIR . '/css/certainpage');
@@ -84,6 +99,20 @@ define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 	    }
 	}
 	add_action('wp_enqueue_scripts', 'certainStyles');
+
+/*****---------- 2.6 Sessions ----------*****/
+	function sk_start_session() {
+	    if(!session_id()) {
+	        session_start();
+	    }
+	}
+
+	function sk_end_session() {
+	    session_destroy ();
+	}
+
+	add_action('init', 'sk_start_session', 1);
+	add_action('wp_logout', 'sk_end_session');
 
 /*************** 3. FILTERS ***************/
 
