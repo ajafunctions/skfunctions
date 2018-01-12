@@ -12,9 +12,9 @@ Network: true
 defined( 'ABSPATH' )
 	or die( 'No direct load ! ' );
 
-define( 'SK_CF_DIR', plugin_dir_path( __FILE__ ) );
-define( 'SK_CF_URL', plugin_dir_url( __FILE__ ) );
-define( 'SK_CF_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+define( 'SK_CF_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+define( 'SK_CF_URL', trailingslashit( plugin_dir_url( __FILE__ ) ) );
+define( 'SK_CF_PLUGIN_BASENAME', trailingslashit( plugin_basename( __FILE__ ) ) );
 
 /*************** 1. External Links ***************/
 	function add_priorities(){

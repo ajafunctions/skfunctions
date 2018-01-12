@@ -2,7 +2,7 @@
 
 /*************** 1. CUSTOM SHORTCODE ***************/
 /*****---------- 1.1 SLIDER ----------*****/
-	// include( plugin_dir_path( __FILE__ ) . '/shortcodes/sample-shortcode.php'); 
+	// include( SK_CF_DIR . '/shortcodes/sample-shortcode.php'); 
 
 /*************** 2. MAIN SHORTCODES ***************/
 /*****---------- 2.1 GALLERY =ISOTOPES ----------*****/
