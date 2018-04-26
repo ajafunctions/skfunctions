@@ -81,6 +81,7 @@ define( 'SK_CF_PLUGIN_BASENAME', trailingslashit( plugin_basename( __FILE__ ) ) 
 	function main_variables(){
 		echo "<script type=\"text/javascript\">".
 	        "home_url = '".home_url()."';".
+	        // "ajax_url ='".admin_url( 'admin-ajax.php' )."';".
 	      "</script>";
 	}
 	add_action ( 'wp_footer', 'main_variables' );
