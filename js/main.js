@@ -663,4 +663,15 @@
 	//		 }
 	//	 );
 	// }
+/**------------- 2.2.4 GET URL PARAMETER SAMPLE -------------**/
+	// initialize this script using .load() e.g.:
+	// $( window ).load(function() {
+	// 		var program_cat_param = getURLParameter('pc_param');
+	// 		$(".programTabsMaster__links-parent").find('.'+ program_cat_param).trigger('click');
+	// });
+	
+	window.getURLParameter = function(name) {
+		return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [null, ''])[1].replace(/\+/g, '%20')) || null;
+   	};
+
 } )( jQuery );
