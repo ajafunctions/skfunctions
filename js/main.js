@@ -9,22 +9,10 @@
 	} );
 /*****---------- 1.1 INIT ----------*****/
 	function init() {
-		// init Isotope =GALLERY
-			initIsotope();
-		// init SLICKS
-			slickSingle();
-			slickThumbnail();
-			slickMultiple();
-			slickCenter();
-			slickMisc();
-		// SET POSITION SLICK SAMPLE
-			// $('.our-team-slider__slickmaster').slick("setPosition", 0);
-		// init Date Pickers
-			// initDatePickers();
+		slickMisc();
 	}
 /*****---------- 1.2 onChanges ----------*****/
 	function onChanges() {
-
 	}
 /*****---------- 1.3 onClicks ----------*****/
 	function onClicks() {
@@ -532,6 +520,7 @@
 	};
 
 	window.slickMisc = function() {
+		// $('.our-team-slider__slickmaster').slick("setPosition", 0);
 		$( '.side-services__slickmaster' ).slick( {
 			slidesToShow: 1,
 			slidesToScroll: 1,
