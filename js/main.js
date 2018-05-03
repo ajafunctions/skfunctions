@@ -677,4 +677,14 @@
 	window.scrollToanElement = function(element) {
 		$('html, body').animate({ scrollTop: $(element).offset().top }, 'slow');
 	};
+/**------------- 2.2.6 Wordpress GET page ID -------------**/
+	window.wpGetPageID = function() {
+		var bodyClasses = $('body').attr('class');
+		var pageIdPattern = /page-id-(\d+)/g;
+		var pageIDstring = pageIdPattern.exec( bodyClasses );
+
+		if(pageIDstring.length != 0) {
+			return pageIDstring[1];
+		}
+	};
 } )( jQuery );
