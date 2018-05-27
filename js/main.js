@@ -676,4 +676,18 @@
 			return pageIDstring[1];
 		}
 	};
+/**------------- 2.2.7 CONVERT UL LI to SELECT -------------**/
+	$('ul.selectdropdown').each(function() {
+        var $select = $('<select />');
+
+        $(this).find('a').each(function() {
+            var $option = $('<option />');
+            $option.attr('value', $(this).attr('href')).html($(this).html());
+            $select.append($option);
+        });
+
+        $(this).replaceWith($select);
+    });
+
+
 } )( jQuery );
