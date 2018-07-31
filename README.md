@@ -2,7 +2,7 @@
 
 ``` html
 1. Portal Modal pattern:
-<a href="#" class="link--modal" data-modal="modal__1">test</a>
+<a href="#" class="portal--link" data-modal="#modal__1">test</a>
     
 <div id="modal__1" class="portal--modal">
     <div class="portal--modal-details">

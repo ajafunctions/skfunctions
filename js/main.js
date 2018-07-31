@@ -19,10 +19,11 @@
 		$( document ).on( 'click', '.portal--link', function( e ) {
 			e.preventDefault();
 			var modal_id = $( this ).data( 'modal' );
-			var $box_modal = $( document ).find( modal_id );
+			var $box_modal = $( document ).find( '#' + modal_id );
 			if ( $box_modal.length ) {
 				$box_modal.fadeIn( 'fast' );
 			}
+
 		} );
 
 		$( document ).on( "click", ".portal--modal-close", function( e ) {

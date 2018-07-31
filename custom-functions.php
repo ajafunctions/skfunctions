@@ -103,7 +103,7 @@ define( 'SK_CF_PLUGIN_BASENAME', trailingslashit( plugin_basename( __FILE__ ) ) 
 
 /*****---------- 2.6 Sessions ----------*****/
 	function sk_start_session() {
-	    if(!session_id()) {
+	    if(!session_id() || session_status() == PHP_SESSION_NONE) {
 	        session_start();
 	    }
 	}
@@ -135,7 +135,7 @@ define( 'SK_CF_PLUGIN_BASENAME', trailingslashit( plugin_basename( __FILE__ ) ) 
 
 	function test_code_here(){
 	}
-	add_action('init', 'test_code_here');
+	add_action('wp', 'test_code_here');
 
 /*************** 5. REUSBALE FUNCTIONS ***************/
 /*****---------- 5.1 Word Limiter ----------*****/

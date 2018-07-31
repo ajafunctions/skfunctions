@@ -2,6 +2,10 @@
     PLUGINS GLOBAL CSS
 */
 
+#request-filesystem-credentials-form {
+    display: none !important;
+}
+
 /*************** 0. CUSTOMIZATION FOR NUMBER FIELDS ***************/
     input[type=number]::-webkit-outer-spin-button,
     input[type=number]::-webkit-inner-spin-button {
