@@ -31,30 +31,69 @@
 	add_shortcode( 'product-slider' , 'productSlider' );
 
 	// ______________________________ =Home Special Blocks ______________________________
-	function homeSmallBlocks( $atts ) {
+	function bi_SimpleBox( $atts ) {
 		$sc_atts = shortcode_atts(
 	                array(
-	                    'box_image' => '',
-	                    'background_color' => '',
 	                    'title' => '',
-	                    'excerpt' => '',
-	                    'link' => ''
-	                ), $atts, 'home-small-blocks' );
+	                    'sub_label' => '',
+	                    'box_description' => '',
+	                    'text_content_bg_color' => '',
+	                    'text_color' => '#000',
+	                    'active_meta_info' => '',
+	                    'post_link' => '',
+	                    'external_link' => '',
+			    		'thumbnail_image' => '',
+			    		'gallery_images' => '',
+	                ), $atts, 'bi-simple-box' );
+
+		$box_link = '' ;
+		// $active_meta_info 	= vc_build_link( $sc_atts['active_meta_info'] );
+		// $ex_link 			= vc_build_link( $sc_atts['external_link'] );
+		$post_link 			= vc_build_link( $sc_atts['post_link'] );
+
+		if($sc_atts['external_link'] != '') {
+			$box_link = $sc_atts['external_link'];
+		} else {
+			$box_link = $post_link['url'];
+		}
 
 		ob_start();
 	    ?>
-	    	<div class="hsb-one-thirds__single__container">
-				<div class="hsb-one-thirds__single" style="background-color: <?php echo $sc_atts['background_color'] ?>">
-					<div class="hsb-one-thirds__image" style="background-image: url(<?php echo wp_get_attachment_url($sc_atts['box_image']) ?>);"></div>
-					<h4 class="hsb-one-thirds__single__title"><span><em><?php echo $sc_atts['title'] ?></em></span></h4>
-					<div class="hsb-slide-down-details">
-						<div class="hsb-one-thirds__single__excerpt"><?php echo $sc_atts['excerpt'] ?></div>
-						<a href="<?php echo $sc_atts['link'] ?>" class="hsb-one-thirds__single__premalink">Read More<span> >></span></a>
-					</div>
-				</div>
+
+		<?php if ( $sc_atts['thumbnail_image'] ): ?>
+			<div class="boxtype-_simple" style="background-image: url('<?php echo wp_get_attachment_url( $sc_atts['thumbnail_image'] ) ?> ')">
+		<?php else : ?>
+			<div class="boxtype-_simple img-placeholder" style="background-color: #5cd0e0;">
+		<?php endif; ?>
+
+		<?php if(!empty($sc_atts['gallery_images'])) : ?>
+			<div><a class="lg-lit-igniter btsc--permalink" href="#"></a></div>
+			<div class="lg-is-lit" style="display: none;">
+			<?php foreach(explode(',',$sc_atts['gallery_images']) as $gi) : ?>
+				<div data-src="<?php echo wp_get_attachment_url($gi); ?>"><img src="<?php echo wp_get_attachment_url($gi); ?>" alt="" /></div>	
+			<?php endforeach; ?>
 			</div>
-		<?php
+		<?php else : ?>
+			<?php if($box_link != '#' || $box_link != '') : ?>
+				<a href="<?php echo $box_link; ?>" class="btsc--permalink"></a>
+			<?php endif; ?>
+		<?php endif; ?>
+
+			<?php if( $sc_atts['title'] != '' || $sc_atts['sub_label'] != '') : ?>
+				<div class="bt-simple-contents">
+					<div class="bt-simple-label"><span<?= ( $sc_atts['text_color'] == '') ? '' : ' style="color: '. $sc_atts['text_color'].';"' ; ?>><?php echo $sc_atts['sub_label']; ?></span></div>
+					<?php if($box_link != '#') : ?>
+						<h3><a href="<?php echo $box_link; ?>" <?= ( $sc_atts['text_color'] == '') ? '' : ' style="color: '. $sc_atts['text_color'].';"' ; ?>><?php echo $sc_atts['title']; ?></a></h3>
+					<?php else : ?>
+						<h3><a href="#" <?= ( $sc_atts['text_color'] == '') ? '' : ' style="color: '. $sc_atts['text_color'].';"' ; ?> class="lit-enabled"><?php echo $sc_atts['title']; ?></a></h3>
+					<?php endif; ?>
+					<div class="box_description"><?php echo $sc_atts['box_description'] ?></div>
+					<div class="btsc--bg"<?= ($sc_atts['text_content_bg_color'] == '') ? '' : ' style="background-color: '.$sc_atts['text_content_bg_color'].';"'; ?>></div>
+				</div>
+			<?php endif; ?>
+			</div>
+	<?php
 		return ob_get_clean();
 	}
-	add_shortcode( 'home-small-blocks' , 'homeSmallBlocks' );
-	// [home-small-blocks box_image="" background_color="" title="" excerpt="" link="" ]
+	add_shortcode( 'bi-simple-box' , 'bi_SimpleBox' );
+	// [bi-simple-box]
